@@ -16,6 +16,7 @@ geometry: margin=1in
   - `lock on` to safely lock the device (i.e. no commands will be accepted until `lock off` is called) - letter `L` in state overview
   - `lock off` to unlock the device if it is locked
   - `reset data` to reset the data stored in the device
+  - `reset state` to reset the entire device state back to the default (only takes effect on next power up!!)
 
 # `SerialDeviceController` commands:
 
@@ -39,9 +40,17 @@ geometry: margin=1in
     - `m` calculate flow rate as mass/minute
     - `h` calculate flow rate as mass/hours
     - `d` calculate flow rate as mass/day
-    
+
+# `MFCController` commands:
+
+  - all `DeviceController` and `SerialDeviceController` commands PLUS:
+  - `unit <ID>` to specify the ID of the mass flow controller to communicate with (typically a letter from A-Z)
+  - `gas <name>` to specify the name of the gas, must match what is set on the mass flow controller
+  - `totalizer <yes/no>` whether MFC has a totalizer or not (if not correct, will not process serial data correctly!)
+
 # `PumpController` commands:
 
+  - all `DeviceController` commands PLUS:
   - `start` to start the pump (at the currently set speed and microstepping)
   - `stop` to stop the pump and disengage it (no holding torque applied)
   - `hold` to stop the pump but hold the position (maximum holding torque)
@@ -52,6 +61,4 @@ geometry: margin=1in
   - `direction cc` to set the direction to counter clockwise
   - `direction cw` to set the direction to clockwise
   - `direction switch` to reverse the direction (note that any direction changes stops the pump if it is in `rotate <x>` mode)
-  - `lock` to lock the pump (i.e. no commands will be accepted until `unlock` is called)
-  - `unlock` to unlock the pump if it is locked
-  - to be continued (more commands in progress)...
+  - `page` to switch to the next page on the LCD screen
